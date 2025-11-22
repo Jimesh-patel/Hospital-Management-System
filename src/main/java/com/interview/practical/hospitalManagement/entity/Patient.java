@@ -2,46 +2,49 @@ package com.interview.practical.hospitalManagement.entity;
 
 import com.interview.practical.hospitalManagement.entity.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.CurrentTimestamp;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 @Entity
+@ToString
 @Getter
 @Setter
-@ToString
 @Table(
-//        name="patient_tbl",
+        name = "patient",
+        uniqueConstraints = {
+//                @UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}),
+                @UniqueConstraint(name = "unique_patient_name_birthdate", columnNames = {"name", "birthDate"})
+        },
         indexes = {
-                @Index(name = "idx_patient_birth_date", columnList = "birthDate, email")
+                @Index(name = "idx_patient_birth_date", columnList = "birthDate")
         }
 )
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//    @Column(name="patient_name", length=100)
+    @Column(nullable = false, length = 40)
     private String name;
 
-    @ToString.Exclude
+    //    @ToString.Exclude
     private LocalDate birthDate;
 
-//    @Column(name = "patient_email", unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String gender;
 
-    @Enumerated(EnumType.STRING)
-    private BloodGroupType bloodGroup;
-
-    @CurrentTimestamp
+    @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    private BloodGroupType bloodGroup;
 }
