@@ -51,11 +51,13 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST } )
     @JoinColumn(name = "insurance_id")  // Owning Side
+    @ToString.Exclude
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true) // Inverse side
+    @ToString.Exclude
     private List<Appointment> appointments;
 }
 
@@ -63,13 +65,20 @@ public class Patient {
 
 
 /*
-Use of @Builder
+1.  Use of @Builder
 
-User user = User.builder()
-        .id(1L)
-        .name("Jimesh")
-        .email("test@gmail.com")
-        .build();
+    User user = User.builder()
+            .id(1L)
+            .name("Jimesh")
+            .email("test@gmail.com")
+            .build();
 
-User user = new User(1L, "Jimesh", "test@gmail.com");
+    User user = new User(1L, "Jimesh", "test@gmail.com");
+
+2.  FetchType.EAGER
+    FetchType.LAZY
+
+3.  orphaRemoval = true
+    patient.getAppointment.remove(appointment)
+    child without parent -> orphan (delete auto)
  */
