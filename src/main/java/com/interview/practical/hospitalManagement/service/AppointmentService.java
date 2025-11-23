@@ -32,4 +32,15 @@ public class AppointmentService {
 
         return appointmentRepository.save(appointment);
     }
+
+    @Transactional
+    public Appointment reAssignAppointment(Long appointmentId, Long doctorId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+
+        appointment.setDoctor(doctor); // auto call update, because it is dirty
+        doctor.getAppointments().add(appointment); // Just for Bidirectional consistency
+        return appointment;
+
+    }
 }

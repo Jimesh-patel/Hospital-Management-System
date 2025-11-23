@@ -51,7 +51,7 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
-    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST } )
+    @OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true )
     @JoinColumn(name = "insurance_id")  // Owning Side
     @ToString.Exclude
     private Insurance insurance;
@@ -81,4 +81,11 @@ public class Patient {
 3.  orphaRemoval = true
     patient.getAppointment.remove(appointment)
     child without parent -> orphan (delete auto)
+    orphaRemoval   --> delete that not reference by its parent even if parent is in DB
+    Cascade.REMOVE --> delete child when parent delete
+
+4.  CascadeType.PERSIST  ---> Create
+    CascadeType.MERGE    ---> Update
+    CascadeType.REMOVE   ---> Delete
+    CascadeType.ALL      ---> Create + update + delete
  */

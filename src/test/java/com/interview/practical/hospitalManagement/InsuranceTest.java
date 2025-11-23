@@ -31,6 +31,10 @@ public class InsuranceTest {
                  .build();
         Patient patient = insuranceService.assignInsurance(insurance, 1L);
         System.out.println(patient);
+
+        var newPatient = insuranceService.disaccociateInsuranceFromPatient(patient.getId());
+        System.out.println(newPatient);
+
      }
 
      @Test
@@ -41,7 +45,11 @@ public class InsuranceTest {
                 .build();
 
         var newAppointment = appointmentService.createNewAppointment(appointment, 1L, 2L);
-        System.out.println(newAppointment);
+        System.out.println(newAppointment.toString());
+
+        var updateAppointment = appointmentService.reAssignAppointment(newAppointment.getId(), 3L);
+        System.out.println(updateAppointment.toString());
+
      }
 
 }

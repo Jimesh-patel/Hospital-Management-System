@@ -31,4 +31,7 @@ public class Doctor {
     @ManyToMany(mappedBy = "doctors")
     private Set<Department> departments = new HashSet<>();
 
+    @OneToMany(mappedBy = "doctor")
+    private Set<Appointment> appointments  = new HashSet<>();
+
 }
