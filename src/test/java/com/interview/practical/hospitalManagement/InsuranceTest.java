@@ -24,31 +24,37 @@ public class InsuranceTest {
 
     @Test
      public void testInsurance(){
-         Insurance insurance = Insurance.builder()
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+        Insurance insurance = Insurance.builder()
                  .policyNumber("HDFC_1234")
                  .provider("HDFC")
                  .validUntil(LocalDate.of(2020, 1, 1))
                  .build();
         Patient patient = insuranceService.assignInsurance(insurance, 1L);
         System.out.println(patient);
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
 
         var newPatient = insuranceService.disaccociateInsuranceFromPatient(patient.getId());
         System.out.println(newPatient);
-
-     }
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+    }
 
      @Test
      public void testAppointment() {
-        Appointment appointment = Appointment.builder()
+         System.out.println("---------------------------------------------------------------------------------------------------------------");
+         Appointment appointment = Appointment.builder()
                 .appointmentTime(LocalDateTime.of(2025, 11, 1, 14, 0, 0))
                 .reason("Cencer")
                 .build();
 
         var newAppointment = appointmentService.createNewAppointment(appointment, 1L, 2L);
-        System.out.println(newAppointment.toString());
+        System.out.println(newAppointment);
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
 
-        var updateAppointment = appointmentService.reAssignAppointment(newAppointment.getId(), 3L);
-        System.out.println(updateAppointment.toString());
+         var updateAppointment = appointmentService.reAssignAppointment(newAppointment.getId(), 3L);
+        System.out.println(updateAppointment);
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
 
      }
 

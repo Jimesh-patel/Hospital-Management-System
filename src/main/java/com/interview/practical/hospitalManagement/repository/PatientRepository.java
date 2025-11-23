@@ -1,6 +1,7 @@
 package com.interview.practical.hospitalManagement.repository;
 
 import com.interview.practical.hospitalManagement.dto.BloodGroupCountResponseEntity;
+import com.interview.practical.hospitalManagement.entity.Appointment;
 import com.interview.practical.hospitalManagement.entity.Patient;
 import com.interview.practical.hospitalManagement.entity.type.BloodGroupType;
 import jakarta.transaction.Transactional;
@@ -45,4 +46,7 @@ public interface PatientRepository  extends JpaRepository<Patient, Long> {
     @Query("UPDATE Patient p SET p.name = :name where p.id = :id")
     int updateNameWithId(@Param("name") String name, @Param("id") Long id);
 
+    // Fetch appointment with patients
+    @Query("SELECT p FROM Patient p LEFT JOIN FETCH p.appointments a LEFT JOIN FETCH a.doctor")
+    List<Patient> findAllPatientWithAppointments();
 }

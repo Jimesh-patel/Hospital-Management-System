@@ -56,8 +56,8 @@ public class Patient {
     @ToString.Exclude
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true) // Inverse side
-    @ToString.Exclude
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER) // Inverse side
+//    @ToString.Exclude
     private List<Appointment> appointments;
 }
 
@@ -75,8 +75,8 @@ public class Patient {
 
     User user = new User(1L, "Jimesh", "test@gmail.com");
 
-2.  FetchType.EAGER
-    FetchType.LAZY
+2.  FetchType.EAGER  ---> with Patient fetch all his appointments immediately.
+    FetchType.LAZY   ---> with Patient, his appointments are not required immediately.
 
 3.  orphaRemoval = true
     patient.getAppointment.remove(appointment)

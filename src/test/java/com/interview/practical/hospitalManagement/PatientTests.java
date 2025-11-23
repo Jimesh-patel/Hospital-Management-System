@@ -83,4 +83,20 @@ public class PatientTests {
         System.out.println("---------------------------------------------------------------------------------------------------------------");
 
     }
+
+    @Test
+    public void testTransactionMethods2() {
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+        // N + 1 problem when appointments in patient is not exclude and set FetchType EAGER
+        List<Patient> patientList = patientRepository.findAll();
+        System.out.println(patientList);
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+        // Solution of N+1 problem with custom query
+        List<Patient> patientList2 = patientRepository.findAllPatientWithAppointments();
+        System.out.println(patientList2);
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+    }
 }
