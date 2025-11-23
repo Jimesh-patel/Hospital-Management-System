@@ -1,10 +1,7 @@
 package com.interview.practical.hospitalManagement.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Insurance {
 
     @Id
@@ -37,3 +35,7 @@ public class Insurance {
     @OneToOne(mappedBy = "insurance") // inverse side
     private Patient patient;
 }
+
+
+
+

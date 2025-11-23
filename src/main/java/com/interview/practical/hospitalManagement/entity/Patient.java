@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -51,6 +52,24 @@ public class Patient {
     private BloodGroupType bloodGroup;
 
     @OneToOne
-    @JoinColumn(name = "patient_insurance_id")  // Owning Side
+    @JoinColumn(name = "insurance_id")  // Owning Side
     private Insurance insurance;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
 }
+
+
+
+
+/*
+Use of @Builder
+
+User user = User.builder()
+        .id(1L)
+        .name("Jimesh")
+        .email("test@gmail.com")
+        .build();
+
+User user = new User(1L, "Jimesh", "test@gmail.com");
+ */
